@@ -3,1109 +3,861 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0b0e17">
 <title>Star 7 Global</title>
-
 <style>
 :root {
-  --bg:#0b0e17;
-  --panel:#141a27;
-  --card:#1b2332;
-  --blue:#00d2ff;
-  --gold:#ffb800;
-  --muted:#9ca6b8;
-  --line:#344158;
+  --bg: #0b0e17;
+  --panel: #151b28;
+  --card: #1b2332;
+  --blue: #00d2ff;
+  --gold: #ffb800;
+  --text: #f5f7fb;
+  --muted: #9ca6b8;
+  --red: #ff2e56;
 }
-
-* { box-sizing:border-box; }
-
+* { box-sizing: border-box; }
 body {
-  margin:0;
-  background:var(--bg);
-  color:white;
-  font-family:Arial,sans-serif;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, sans-serif;
 }
-
+button, input, select, textarea {
+  font: inherit;
+  border-radius: 8px;
+}
+button {
+  border: 0;
+  padding: 11px 14px;
+  background: var(--blue);
+  color: #07111a;
+  font-weight: bold;
+  cursor: pointer;
+}
+button.secondary {
+  background: #293448;
+  color: white;
+}
+button.danger { background: var(--red); color: white; }
 header {
-  position:sticky;
-  top:0;
-  z-index:5;
-  padding:15px;
-  background:#111621;
-  border-bottom:1px solid var(--line);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 15px;
+  background: #0b0e17ee;
+  border-bottom: 1px solid #273043;
 }
-
-.logo {
-  font-size:22px;
-  font-weight:900;
-  color:var(--blue);
-}
-
-.logo b { color:var(--gold); }
-
-button,.button {
-  display:inline-block;
-  padding:11px 14px;
-  border:0;
-  border-radius:9px;
-  background:var(--blue);
-  color:#07111a;
-  font-weight:bold;
-  cursor:pointer;
-  text-align:center;
-}
-
-.secondary {
-  background:#263247;
-  color:white;
-}
-
-.danger {
-  background:#ff4764;
-  color:white;
-}
-
+.logo { font-size: 23px; font-weight: 900; white-space: nowrap; }
+.logo span { color: var(--blue); }
+.logo b { color: var(--gold); }
 nav {
-  display:flex;
-  gap:7px;
-  padding:10px;
-  background:#111621;
-  overflow-x:auto;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 12px;
+  scrollbar-width: thin;
 }
-
-nav button { white-space:nowrap; }
-
-main {
-  max-width:1100px;
-  margin:auto;
-  padding:16px 14px 40px;
+nav button {
+  flex-shrink: 0;
+  background: #202839;
+  color: white;
 }
-
-.hidden { display:none !important; }
-
-.panel {
-  background:var(--panel);
-  padding:17px;
-  margin:14px 0;
-  border:1px solid #202b3c;
-  border-radius:15px;
-}
-
+nav button.active { background: var(--blue); color: #07111a; }
+main { padding: 15px; max-width: 1200px; margin: auto; }
 .hero {
-  background:linear-gradient(130deg,#17253a,#153445,#302416);
-  padding:25px;
-  border-radius:17px;
-  margin-bottom:24px;
+  min-height: 250px;
+  border-radius: 18px;
+  padding: 24px;
+  display: flex;
+  align-items: end;
+  background:
+    linear-gradient(90deg, #07111aee, #07111a33),
+    linear-gradient(135deg, #123e58, #151b28 60%, #523500);
+  border: 1px solid #273043;
 }
-
-.hero h1 {
-  font-size:clamp(28px,6vw,44px);
-  margin:12px 0;
-}
-
-.hero p { color:#c3cfdf; }
-
-h2 { font-size:21px; }
-
+.hero h1 { font-size: clamp(30px, 6vw, 52px); margin: 8px 0; }
+.hero p { color: #d4dce8; max-width: 550px; line-height: 1.5; }
+.tag { color: var(--blue); font-weight: bold; letter-spacing: 2px; }
+section { margin-top: 26px; }
+h2 { font-size: 20px; }
 .grid {
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(145px,1fr));
-  gap:12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
+  gap: 13px;
 }
-
 .card {
-  background:var(--card);
-  padding:10px;
-  border-radius:12px;
-  overflow-wrap:anywhere;
-  min-width:0;
+  background: var(--card);
+  border: 1px solid #273043;
+  border-radius: 12px;
+  overflow: hidden;
+  min-width: 0;
 }
-
 .poster {
-  height:135px;
-  border-radius:9px;
-  background:linear-gradient(140deg,#20334c,#171e2c);
-  background-size:cover;
-  background-position:center;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:var(--blue);
-  font-size:26px;
-  font-weight:bold;
-  margin-bottom:10px;
+  height: 175px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(145deg, #123b52, #28213c, #5a3907);
+  color: var(--blue);
+  font-size: 34px;
+  font-weight: bold;
 }
-
-.card h3 {
-  font-size:14px;
-  margin:7px 0;
+.card-info { padding: 11px; }
+.card h3 { font-size: 15px; margin: 0 0 8px; overflow-wrap: anywhere; }
+.card p { color: var(--muted); font-size: 12px; }
+.card button { width: 100%; margin-top: 5px; }
+.panel {
+  background: var(--panel);
+  border: 1px solid #273043;
+  padding: 16px;
+  border-radius: 14px;
+  margin: 18px 0;
 }
-
-.card p {
-  font-size:12px;
-  color:var(--muted);
+form { display: grid; gap: 11px; }
+label { font-size: 13px; color: #c8d1df; }
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  background: #0c111c;
+  border: 1px solid #354056;
+  color: white;
+  margin-top: 5px;
 }
-
-.card button {
-  padding:8px 9px;
-  font-size:12px;
-  margin:3px 2px 0 0;
+input[type="checkbox"] { width: auto; }
+.row { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+.muted { color: var(--muted); font-size: 13px; line-height: 1.5; }
+.hidden { display: none !important; }
+#player {
+  width: 100%;
+  max-height: 65vh;
+  background: #000;
+  border-radius: 12px;
 }
-
-input,select,textarea {
-  width:100%;
-  padding:12px;
-  margin:5px 0 13px;
-  background:#0d1320;
-  border:1px solid var(--line);
-  color:white;
-  border-radius:9px;
-  font:inherit;
-}
-
-input[type=file] {
-  display:block;
-  padding:12px;
-  min-height:50px;
-  background:#0d1320;
-  cursor:pointer;
-}
-
-label {
-  display:block;
-  font-size:13px;
-  color:#d0d8e5;
-  margin-top:8px;
-}
-
-.formgrid {
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:10px;
-}
-
-.full { grid-column:1/-1; }
-
-.notice {
-  background:#17263a;
-  padding:12px;
-  border-radius:9px;
-  color:#cbd9ea;
-  font-size:13px;
-  line-height:1.6;
-}
-
-.warning {
-  background:#342b18;
-  color:#ffe2a1;
-}
-
-.actions {
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin:12px 0;
-}
-
-.tabs {
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-}
-
-.empty {
-  padding:20px;
-  color:var(--muted);
-  border:1px dashed var(--line);
-  border-radius:10px;
-  grid-column:1/-1;
-}
-
-video {
-  width:100%;
-  max-height:60vh;
-  background:black;
-  border-radius:10px;
-}
-
-small { color:var(--muted); }
-
-footer {
-  text-align:center;
-  color:var(--muted);
-  font-size:12px;
-  padding:20px;
-}
-
-@media(max-width:550px) {
-  .formgrid { grid-template-columns:1fr; }
-  .full { grid-column:auto; }
-  .hero { padding:19px; }
-  .grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
-  .poster { height:115px; }
+#playerArea h2 { overflow-wrap: anywhere; }
+#status { color: var(--blue); white-space: pre-wrap; font-size: 13px; }
+footer { text-align: center; padding: 25px; color: var(--muted); }
+@media(max-width:520px) {
+  header { padding: 12px; }
+  .logo { font-size: 19px; }
+  main { padding: 12px; }
+  .hero { min-height: 230px; padding: 18px; }
+  .row { grid-template-columns: 1fr; }
+  .poster { height: 145px; }
 }
 </style>
 </head>
-
 <body>
 
 <header>
-  <div class="logo">S7 <b>✦</b> GLOBAL</div>
-  <button id="shareButton">Share</button>
+  <div class="logo">S<span>7</span><b> ★</b> <small>GLOBAL</small></div>
+  <button onclick="showPage('admin')">Admin Studio</button>
 </header>
 
-<nav>
-  <button data-view="home">Home</button>
-  <button data-view="movies">Movies</button>
-  <button data-view="series">Web Series</button>
-  <button data-view="episodes">Episodes</button>
-  <button data-view="reality">Reality Shows</button>
-  <button data-view="sports">Live Sports</button>
-  <button data-view="search">Search</button>
-  <button data-view="space">My Space</button>
-  <button data-view="admin">Admin Panel</button>
+<nav id="navigation">
+  <button class="active" onclick="showPage('home',this)">Home</button>
+  <button onclick="showPage('movies',this)">Movies</button>
+  <button onclick="showPage('series',this)">Web Series</button>
+  <button onclick="showPage('episodes',this)">Episodes</button>
+  <button onclick="showPage('reality',this)">Reality Shows</button>
+  <button onclick="showPage('sports',this)">Live Sports</button>
+  <button onclick="showPage('search',this)">Search</button>
+  <button onclick="showPage('space',this)">My Space</button>
 </nav>
 
 <main>
-
-<section id="home">
-  <div class="hero">
-    <small>YOUR ENTERTAINMENT WORLD</small>
-    <h1>Star 7 Global</h1>
-    <p>Movies, Web Series, Episodes and Entertainment.</p>
-    <button onclick="showView('movies')">Explore Content</button>
+  <div id="home" class="page">
+    <div class="hero">
+      <div>
+        <div class="tag">YOUR ENTERTAINMENT DESTINATION</div>
+        <h1>Welcome to<br>Star 7 Global</h1>
+        <p>Movies, series, episodes and entertainment — all in one place.</p>
+        <button onclick="document.getElementById('library').scrollIntoView({behavior:'smooth'})">Explore Now</button>
+      </div>
+    </div>
+    <section>
+      <h2>▶ Continue Watching</h2>
+      <div id="continueGrid" class="grid"></div>
+    </section>
+    <section>
+      <h2>✨ Recently Added</h2>
+      <div id="library" class="grid"></div>
+    </section>
   </div>
 
-  <h2>Continue Watching</h2>
-  <div id="continueGrid" class="grid"></div>
-
-  <h2>Recently Added</h2>
-  <div id="recentGrid" class="grid"></div>
-</section>
-
-<section id="movies" class="hidden">
-  <h2>Movies</h2>
-  <div id="moviesGrid" class="grid"></div>
-</section>
-
-<section id="series" class="hidden">
-  <h2>Web Series</h2>
-  <div id="seriesGrid" class="grid"></div>
-</section>
-
-<section id="episodes" class="hidden">
-  <h2>Episodes</h2>
-  <div id="episodesGrid" class="grid"></div>
-</section>
-
-<section id="reality" class="hidden">
-  <h2>Reality Shows</h2>
-  <div id="realityGrid" class="grid"></div>
-</section>
-
-<section id="sports" class="hidden">
-  <h2>Live Sports</h2>
-  <p class="notice">Only use streams you are authorized to broadcast.</p>
-  <div id="sportsGrid" class="grid"></div>
-</section>
-
-<section id="search" class="hidden">
-  <h2>Search</h2>
-  <input id="searchInput" placeholder="Search videos...">
-  <div id="searchGrid" class="grid"></div>
-</section>
-
-<section id="space" class="hidden">
-  <h2>My Space</h2>
-  <h3>Watchlist</h3>
-  <div id="watchGrid" class="grid"></div>
-
-  <h3>Viewing History</h3>
-  <div id="historyGrid" class="grid"></div>
-
-  <div class="panel">
-    <h3>Backup and Restore</h3>
-    <button id="exportButton">Export Backup</button>
-    <label>Import Backup</label>
-    <input id="importInput" type="file" accept=".json,application/json">
-  </div>
-</section>
-
-<section id="admin" class="hidden">
-  <h2>Admin Panel</h2>
-
-  <div class="panel">
-    <div class="notice warning">
-      This is a local demo PIN, not secure authentication.
-      Do not use it to protect a public website.
-    </div>
-
-    <label>Admin Demo PIN</label>
-    <input id="adminPin" type="password" placeholder="Enter demo PIN">
-
-    <button id="unlockButton">Unlock Admin</button>
-    <p id="adminStatus"></p>
+  <div id="movies" class="page hidden"><h2>🎬 Movies</h2><div class="grid" id="moviesGrid"></div></div>
+  <div id="series" class="page hidden"><h2>📺 Web Series</h2><div class="grid" id="seriesGrid"></div></div>
+  <div id="episodes" class="page hidden"><h2>▶ Episodes</h2><div class="grid" id="episodesGrid"></div></div>
+  <div id="reality" class="page hidden"><h2>🌟 Reality Shows</h2><div class="grid" id="realityGrid"></div></div>
+  <div id="sports" class="page hidden">
+    <h2>🏆 Live Sports</h2>
+    <p class="muted">Only add sports streams you own or are authorized to broadcast.</p>
+    <div class="grid" id="sportsGrid"></div>
   </div>
 
-  <div id="adminArea" class="hidden">
-
-    <div class="tabs">
-      <button data-admin="videoPanel">ADD VIDEO</button>
-      <button data-admin="adPanel">ADD AD</button>
-      <button data-admin="managePanel">MANAGE CONTENT</button>
-      <button data-admin="adsManagePanel">MANAGE ADS</button>
-    </div>
-
-    <!-- ADD VIDEO -->
-    <div id="videoPanel" class="panel">
-      <h2>📤 Add Video</h2>
-
-      <label>Video Title *</label>
-      <input id="videoTitle" placeholder="Enter video title">
-
-      <div class="formgrid">
-        <div>
-          <label>Category</label>
-          <select id="videoCategory">
-            <option>Movies</option>
-            <option>Web Series</option>
-            <option>Episodes</option>
-            <option>Serials</option>
-            <option>Short Videos</option>
-            <option>Reality Shows</option>
-            <option>Live Reality Shows</option>
-            <option>Live Sports</option>
-          </select>
-        </div>
-
-        <div>
-          <label>Series Name</label>
-          <input id="seriesName" placeholder="Optional">
-        </div>
-
-        <div>
-          <label>Season Number</label>
-          <input id="seasonNumber" type="number" min="1">
-        </div>
-
-        <div>
-          <label>Episode Number</label>
-          <input id="episodeNumber" type="number" min="1">
-        </div>
-      </div>
-
-      <label>Choose Video From Your Phone</label>
-      <input
-        id="videoFile"
-        type="file"
-        accept="video/*,.mp4,.webm,.mov,.m4v,.mkv"
-      >
-
-      <p id="selectedVideo" class="notice">No video selected.</p>
-
-      <label>Or enter a direct video URL</label>
-      <input id="videoURL" type="url" placeholder="https://example.com/video.mp4">
-
-      <label>Poster Image (optional)</label>
-      <input id="posterFile" type="file" accept="image/*">
-
-      <label>Video Description</label>
-      <textarea id="videoDescription" placeholder="Description"></textarea>
-
-      <label>Publishing Status</label>
-      <select id="videoStatus">
-        <option value="published">Publish</option>
-        <option value="draft">Save as Draft</option>
-      </select>
-
-      <div class="notice">
-        This demo stores selected video files in browser storage.
-        Large files may exceed storage limits. Use a direct URL for larger videos.
-      </div>
-
-      <div class="actions">
-        <button id="addVideoButton">ADD VIDEO</button>
-        <button class="secondary" id="clearVideoButton">Clear Form</button>
-      </div>
-
-      <p id="videoMessage"></p>
-    </div>
-
-    <!-- ADD AD -->
-    <div id="adPanel" class="panel hidden">
-      <h2>📢 Add Advertisement</h2>
-
-      <label>Advertisement Title *</label>
-      <input id="adTitle" placeholder="Advertisement title">
-
-      <label>Advertisement Description</label>
-      <textarea id="adDescription" placeholder="Description"></textarea>
-
-      <label>Choose Advertisement Image</label>
-      <input id="adImageFile" type="file" accept="image/*">
-
-      <label>Or Advertisement Image URL</label>
-      <input id="adImageURL" type="url" placeholder="https://example.com/ad.jpg">
-
-      <label>Call-to-Action Button</label>
-      <select id="adCTA">
-        <option>WATCH NOW</option>
-        <option>SHOP NOW</option>
-        <option>BUY NOW</option>
-        <option>LEARN MORE</option>
-      </select>
-
-      <label>Destination URL</label>
-      <input id="adDestination" type="url" placeholder="https://example.com">
-
-      <label>Advertisement Duration (seconds)</label>
-      <input id="adDuration" type="number" min="3" max="60" value="8">
-
-      <div class="actions">
-        <button id="addAdButton">ADD AD</button>
-        <button class="secondary" id="clearAdButton">Clear Form</button>
-      </div>
-
-      <p id="adMessage"></p>
-    </div>
-
-    <!-- MANAGE CONTENT -->
-    <div id="managePanel" class="panel hidden">
-      <h2>Manage Videos</h2>
-      <div id="manageGrid" class="grid"></div>
-    </div>
-
-    <!-- MANAGE ADS -->
-    <div id="adsManagePanel" class="panel hidden">
-      <h2>Manage Advertisements</h2>
-      <div id="adsGrid" class="grid"></div>
-    </div>
-
+  <div id="search" class="page hidden">
+    <h2>Search Star 7</h2>
+    <input id="searchInput" placeholder="Search movies, series or episodes..." oninput="renderSearch()">
+    <div id="searchGrid" class="grid"></div>
   </div>
-</section>
 
-<section class="panel">
-  <h2>Video Player</h2>
-  <video id="player" controls playsinline preload="metadata"></video>
-  <p id="playerTitle">Select a video to play.</p>
-  <button id="nextButton" class="secondary">Next Episode</button>
-</section>
+  <div id="space" class="page hidden">
+    <h2>My Space</h2>
+    <div class="panel">
+      <h3>Watch History</h3>
+      <div id="historyGrid" class="grid"></div>
+    </div>
+    <div class="panel">
+      <h3>My Watchlist</h3>
+      <div id="watchlistGrid" class="grid"></div>
+    </div>
+    <button class="secondary" onclick="exportBackup()">Export Metadata Backup</button>
+    <label>Restore metadata backup (JSON)
+      <input type="file" accept=".json,application/json" onchange="importBackup(event)">
+    </label>
+    <p class="muted">This backup does not contain the actual video files.</p>
+  </div>
 
-<footer>
-  Star 7 Global · Free local prototype
-</footer>
+  <div id="admin" class="page hidden">
+    <h2>⚙️ Admin Studio</h2>
+    <p class="muted">Local demo only. The PIN is not secure authentication.</p>
+    <div id="adminLogin" class="panel">
+      <form onsubmit="loginAdmin(event)">
+        <label>Demo Admin PIN<input id="adminPin" type="password" required></label>
+        <button>Unlock Demo Studio</button>
+      </form>
+    </div>
 
+    <div id="adminTools" class="hidden">
+      <div class="panel">
+        <h2>🎬 ADD VIDEO</h2>
+        <form id="videoForm">
+          <label>Video Title<input id="videoTitle" required maxlength="120"></label>
+          <label>Description<textarea id="videoDescription" rows="3"></textarea></label>
+          <div class="row">
+            <label>Category
+              <select id="videoCategory">
+                <option>Movies</option>
+                <option>Web Series</option>
+                <option>Episodes</option>
+                <option>Serials</option>
+                <option>Short Videos</option>
+                <option>Reality Shows</option>
+                <option>Live Reality Shows</option>
+                <option>Live Sports</option>
+              </select>
+            </label>
+            <label>Series / Show Name<input id="showName"></label>
+          </div>
+          <div class="row">
+            <label>Season Number<input id="seasonNumber" type="number" min="1"></label>
+            <label>Episode Number<input id="episodeNumber" type="number" min="1"></label>
+          </div>
+          <label>Choose video from phone (MP4 / WebM / MOV)
+            <input id="videoFile" type="file" accept="video/mp4,video/webm,video/quicktime,.mp4,.webm,.mov" required>
+          </label>
+          <label>Optional poster image<input id="videoPoster" type="file" accept="image/*"></label>
+          <label>Or video URL (optional; use a URL you are allowed to publish)
+            <input id="videoURL" type="url" placeholder="https://example.com/video.mp4">
+          </label>
+          <label><input id="videoPublish" type="checkbox" checked> Publish after saving</label>
+          <button type="submit">Save Video</button>
+          <progress id="videoProgress" value="0" max="100" style="width:100%"></progress>
+        </form>
+      </div>
+
+      <div class="panel">
+        <h2>📢 ADD AD VIDEO</h2>
+        <form id="adForm">
+          <label>Ad Title<input id="adTitle" required maxlength="120"></label>
+          <label>Choose ad video from phone
+            <input id="adFile" type="file" accept="video/mp4,video/webm,video/quicktime,.mp4,.webm,.mov">
+          </label>
+          <label>Or ad video URL (optional)
+            <input id="adURL" type="url" placeholder="https://example.com/ad.mp4">
+          </label>
+          <label>Optional image ad<input id="adImage" type="file" accept="image/*"></label>
+          <label>Button text / CTA<input id="adCTA" placeholder="Learn More"></label>
+          <label>Destination URL (optional)<input id="adDestination" type="url" placeholder="https://example.com"></label>
+          <label>Skip after seconds (0 = no skip button)
+            <input id="adSkip" type="number" min="0" value="5">
+          </label>
+          <label><input id="adActive" type="checkbox" checked> Active ad</label>
+          <button type="submit">Save Ad Video</button>
+        </form>
+      </div>
+
+      <div class="panel">
+        <h2>⚙️ Video Ad Settings</h2>
+        <form id="adSettingsForm">
+          <label>Main video<select id="settingsVideo" required></select></label>
+          <label>Number of ad breaks<input id="adCount" type="number" min="0" max="50" value="4"></label>
+          <label>Select ads (multiple allowed)
+            <select id="selectedAds" multiple size="5"></select>
+          </label>
+          <label>Ad placement
+            <select id="adPlacement">
+              <option value="even">Distribute evenly through video</option>
+              <option value="manual">Enter minutes manually</option>
+            </select>
+          </label>
+          <label>Manual placement in minutes, comma separated
+            <input id="adMinutes" placeholder="5, 10, 15">
+          </label>
+          <button type="submit">Save Ad Settings</button>
+        </form>
+      </div>
+
+      <div class="panel">
+        <h2>Manage Videos</h2>
+        <div id="manageVideos" class="grid"></div>
+      </div>
+      <div class="panel">
+        <h2>Manage Ads</h2>
+        <div id="manageAds" class="grid"></div>
+      </div>
+      <button class="secondary" onclick="logoutAdmin()">Lock Admin Studio</button>
+    </div>
+  </div>
+
+  <section id="playerArea" class="panel hidden">
+    <h2 id="playerTitle">Now Playing</h2>
+    <video id="player" controls playsinline preload="metadata"></video>
+    <div id="adOverlay" class="hidden" style="padding:12px;background:#202839;border-radius:10px;margin-top:8px">
+      <strong id="adLabel">Advertisement</strong>
+      <p id="adText"></p>
+      <a id="adLink" target="_blank" rel="noopener noreferrer" class="hidden" style="color:#00d2ff">Learn More</a>
+      <button id="skipAd" class="secondary hidden" onclick="skipCurrentAd()">Skip Ad</button>
+    </div>
+    <p id="playerStatus" class="muted"></p>
+    <button class="secondary" onclick="closePlayer()">Close Player</button>
+  </section>
+
+  <p id="status" role="status"></p>
 </main>
+
+<footer>STAR 7 GLOBAL · Local Preview Edition</footer>
 
 <script>
 "use strict";
 
-const DB_KEY = "star7_global_complete_local_demo_v2";
-
-let db = {
-  videos: [],
-  ads: [],
-  watchlist: [],
-  history: [],
-  progress: {},
-  pin: "7777"
-};
-
+const DB_NAME = "Star7GlobalDB";
+const DB_VERSION = 1;
+let db;
+let currentVideo = null;
+let currentAd = null;
+let adQueue = [];
+let adBreakActive = false;
+let adTimer = null;
+let watchedSeconds = {};
+let lastSavedSecond = -1;
 let adminUnlocked = false;
-let currentVideoId = null;
-let objectURLs = {};
-
-try {
-  const stored = JSON.parse(localStorage.getItem(DB_KEY) || "null");
-  if (stored && typeof stored === "object") {
-    db = {...db, ...stored};
-  }
-} catch (error) {
-  console.warn("Could not load saved data", error);
-}
 
 const $ = id => document.getElementById(id);
+const getItems = key => {
+  try { return JSON.parse(localStorage.getItem("s7_" + key) || "[]"); }
+  catch { return []; }
+};
+const setItems = (key, value) => localStorage.setItem("s7_" + key, JSON.stringify(value));
+const getObject = key => {
+  try { return JSON.parse(localStorage.getItem("s7_" + key) || "{}"); }
+  catch { return {}; }
+};
+const setObject = (key, value) => localStorage.setItem("s7_" + key, JSON.stringify(value));
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,8);
+const esc = value => String(value ?? "").replace(/[&<>"']/g, c => ({
+  "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+}[c]));
 
-function saveDB() {
-  try {
-    localStorage.setItem(DB_KEY, JSON.stringify(db));
-    return true;
-  } catch (error) {
-    alert(
-      "Browser storage is full. Try a smaller video file. " +
-      "Large videos need online hosting."
-    );
-    return false;
-  }
-}
+function status(message) { $("status").textContent = message; }
 
-function showView(id) {
-  document.querySelectorAll("main > section").forEach(section => {
-    section.classList.toggle("hidden", section.id !== id);
-  });
-  renderAll();
-}
-
-document.querySelectorAll("[data-view]").forEach(button => {
-  button.addEventListener("click", () => showView(button.dataset.view));
-});
-
-document.querySelectorAll("[data-admin]").forEach(button => {
-  button.addEventListener("click", () => {
-    document.querySelectorAll("[data-admin]").forEach(b => {
-      b.classList.toggle("secondary", b !== button);
-    });
-
-    ["videoPanel","adPanel","managePanel","adsManagePanel"].forEach(id => {
-      $(id).classList.toggle("hidden", id !== button.dataset.admin);
-    });
-
-    renderAll();
-  });
-});
-
-function safeText(value) {
-  return String(value || "");
-}
-
-function createCard(video, isAdmin = false) {
-  const card = document.createElement("article");
-  card.className = "card";
-
-  const poster = document.createElement("div");
-  poster.className = "poster";
-
-  if (video.poster) {
-    poster.style.backgroundImage = `url("${video.poster}")`;
-  } else {
-    poster.textContent = safeText(video.title).slice(0, 2).toUpperCase();
-  }
-
-  const title = document.createElement("h3");
-  title.textContent = video.title;
-
-  const category = document.createElement("p");
-  category.textContent =
-    video.category +
-    (video.series ? " · " + video.series : "") +
-    (video.episode ? " · Episode " + video.episode : "");
-
-  card.append(poster, title, category);
-
-  if (!isAdmin && video.status === "published") {
-    const play = document.createElement("button");
-    play.textContent = "▶ Play";
-    play.onclick = () => playVideo(video.id);
-    card.append(play);
-
-    const watch = document.createElement("button");
-    watch.className = "secondary";
-    watch.textContent = db.watchlist.includes(video.id) ? "Saved" : "+ List";
-    watch.onclick = () => toggleWatchlist(video.id);
-    card.append(watch);
-  }
-
-  if (isAdmin && adminUnlocked) {
-    const publish = document.createElement("button");
-    publish.className = "secondary";
-    publish.textContent =
-      video.status === "published" ? "Unpublish" : "Publish";
-
-    publish.onclick = () => {
-      video.status =
-        video.status === "published" ? "draft" : "published";
-      saveDB();
-      renderAll();
-    };
-
-    const remove = document.createElement("button");
-    remove.className = "danger";
-    remove.textContent = "Delete";
-
-    remove.onclick = () => {
-      if (!confirm("Delete this video?")) return;
-
-      db.videos = db.videos.filter(v => v.id !== video.id);
-      db.watchlist = db.watchlist.filter(id => id !== video.id);
-      db.history = db.history.filter(id => id !== video.id);
-      delete db.progress[video.id];
-
-      if (objectURLs[video.id]) {
-        URL.revokeObjectURL(objectURLs[video.id]);
-        delete objectURLs[video.id];
+function openDB() {
+  return new Promise((resolve, reject) => {
+    if (!("indexedDB" in window)) return reject(new Error("IndexedDB is unavailable."));
+    const request = indexedDB.open(DB_NAME, DB_VERSION);
+    request.onupgradeneeded = () => {
+      if (!request.result.objectStoreNames.contains("media")) {
+        request.result.createObjectStore("media", {keyPath:"id"});
       }
-
-      saveDB();
-      renderAll();
     };
-
-    card.append(document.createElement("br"), publish, remove);
-  }
-
-  return card;
+    request.onsuccess = () => { db = request.result; resolve(db); };
+    request.onerror = () => reject(request.error);
+  });
 }
 
-function fillGrid(id, videos, admin = false) {
+function putMedia(id, blob, name) {
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction("media", "readwrite");
+    tx.objectStore("media").put({id, blob, name});
+    tx.oncomplete = resolve;
+    tx.onerror = () => reject(tx.error);
+    tx.onabort = () => reject(tx.error || new Error("Storage aborted"));
+  });
+}
+function getMedia(id) {
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction("media", "readonly");
+    const req = tx.objectStore("media").get(id);
+    req.onsuccess = () => resolve(req.result || null);
+    req.onerror = () => reject(req.error);
+  });
+}
+function deleteMedia(id) {
+  return new Promise(resolve => {
+    const tx = db.transaction("media", "readwrite");
+    tx.objectStore("media").delete(id);
+    tx.oncomplete = resolve;
+    tx.onerror = resolve;
+  });
+}
+
+function showPage(page, button) {
+  document.querySelectorAll(".page").forEach(p => p.classList.add("hidden"));
+  $(page)?.classList.remove("hidden");
+  document.querySelectorAll("#navigation button").forEach(b => b.classList.remove("active"));
+  if (button) button.classList.add("active");
+  renderAll();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function makeCard(item, type="video") {
+  const div = document.createElement("article");
+  div.className = "card";
+  const poster = item.poster || "";
+  div.innerHTML = `
+    <div class="poster" style="${poster ? "background-image:url('"+poster.replace(/'/g,"%27")+"');background-size:cover;background-position:center" : ""}">
+      ${poster ? "" : "S7"}
+    </div>
+    <div class="card-info">
+      <h3>${esc(item.title)}</h3>
+      <p>${esc(item.category || "Advertisement")}</p>
+      ${type === "video" ? `
+        <button data-play="${esc(item.id)}">▶ Play</button>
+        <button class="secondary" data-list="${esc(item.id)}">＋ Watchlist</button>
+      ` : `<button class="secondary" data-delete-ad="${esc(item.id)}">Delete Ad</button>`}
+      ${type === "video" && adminUnlocked ? `<button class="danger" data-delete-video="${esc(item.id)}">Delete Video</button>` : ""}
+    </div>`;
+  if (type === "video") {
+    div.querySelector("[data-play]").onclick = () => playVideo(item.id);
+    div.querySelector("[data-list]").onclick = () => toggleWatchlist(item.id);
+    div.querySelector("[data-delete-video]")?.addEventListener("click", () => removeVideo(item.id));
+  } else {
+    div.querySelector("[data-delete-ad]").onclick = () => removeAd(item.id);
+  }
+  return div;
+}
+
+function renderGrid(id, items) {
   const grid = $(id);
   if (!grid) return;
-
   grid.replaceChildren();
-
-  if (!videos.length) {
-    const empty = document.createElement("div");
-    empty.className = "empty";
-    empty.textContent = "No content available yet.";
-    grid.append(empty);
+  if (!items.length) {
+    const p = document.createElement("p");
+    p.className = "muted";
+    p.textContent = "Nothing here yet. Add content in Admin Studio.";
+    grid.append(p);
     return;
   }
-
-  videos.forEach(video => grid.append(createCard(video, admin)));
-}
-
-function getPublished() {
-  return db.videos.filter(video => video.status === "published");
+  items.forEach(item => grid.append(makeCard(item)));
 }
 
 function renderAll() {
-  const published = getPublished();
-
-  fillGrid("recentGrid", [...published].reverse().slice(0, 20));
-
-  fillGrid(
-    "continueGrid",
-    published.filter(v => Number(db.progress[v.id]) > 0)
-  );
-
-  fillGrid("moviesGrid", published.filter(v => v.category === "Movies"));
-  fillGrid("seriesGrid", published.filter(v => v.category === "Web Series"));
-  fillGrid("episodesGrid", published.filter(v => v.category === "Episodes"));
-
-  fillGrid(
-    "realityGrid",
-    published.filter(v =>
-      ["Reality Shows", "Live Reality Shows"].includes(v.category)
-    )
-  );
-
-  fillGrid("sportsGrid", published.filter(v => v.category === "Live Sports"));
-
-  fillGrid(
-    "watchGrid",
-    published.filter(v => db.watchlist.includes(v.id))
-  );
-
-  fillGrid(
-    "historyGrid",
-    db.history
-      .map(id => db.videos.find(v => v.id === id))
-      .filter(v => v && v.status === "published")
-  );
-
-  fillGrid("manageGrid", [...db.videos].reverse(), true);
-
-  renderSearch();
-  renderAds();
+  const videos = getItems("videos").filter(v => v.published);
+  const ads = getItems("ads");
+  renderGrid("library", [...videos].reverse());
+  renderGrid("moviesGrid", videos.filter(v => v.category === "Movies"));
+  renderGrid("seriesGrid", videos.filter(v => v.category === "Web Series"));
+  renderGrid("episodesGrid", videos.filter(v => v.category === "Episodes" || v.category === "Serials"));
+  renderGrid("realityGrid", videos.filter(v => v.category.includes("Reality")));
+  renderGrid("sportsGrid", videos.filter(v => v.category === "Live Sports"));
+  const progress = getObject("progress");
+  renderGrid("continueGrid", videos.filter(v => progress[v.id]?.seconds > 5 && progress[v.id]?.seconds < (progress[v.id]?.duration || Infinity)));
+  renderGrid("historyGrid", [...videos].filter(v => progress[v.id]).sort((a,b)=>(progress[b.id]?.updated||0)-(progress[a.id]?.updated||0)));
+  renderGrid("watchlistGrid", videos.filter(v => getItems("watchlist").includes(v.id)));
+  renderGrid("manageVideos", getItems("videos"));
+  const ag = $("manageAds");
+  ag.replaceChildren();
+  if (!ads.length) ag.textContent = "No ads added yet.";
+  ads.forEach(a => ag.append(makeCard(a,"ad")));
+  populateAdSettings();
 }
 
 function renderSearch() {
-  const query = ($("searchInput").value || "").toLowerCase().trim();
-
-  const results = getPublished().filter(v =>
-    [v.title, v.category, v.series, v.description]
-      .join(" ")
-      .toLowerCase()
-      .includes(query)
-  );
-
-  fillGrid("searchGrid", results);
+  const q = $("searchInput").value.toLowerCase().trim();
+  const videos = getItems("videos").filter(v => v.published && (v.title+" "+v.description+" "+v.category).toLowerCase().includes(q));
+  renderGrid("searchGrid", videos);
 }
-
-$("searchInput").addEventListener("input", renderSearch);
-
 function toggleWatchlist(id) {
-  if (db.watchlist.includes(id)) {
-    db.watchlist = db.watchlist.filter(x => x !== id);
-  } else {
-    db.watchlist.push(id);
-  }
-
-  saveDB();
+  let list = getItems("watchlist");
+  list = list.includes(id) ? list.filter(x=>x!==id) : [...list,id];
+  setItems("watchlist",list);
+  status("Watchlist updated.");
   renderAll();
 }
-
-function playVideo(id) {
-  const video = db.videos.find(v => v.id === id);
-
-  if (!video || video.status !== "published") return;
-
-  if (!video.src) {
-    alert("No video source is available.");
-    return;
-  }
-
-  currentVideoId = id;
-
-  db.history = [id, ...db.history.filter(x => x !== id)].slice(0, 100);
-  saveDB();
-
-  const player = $("player");
-  $("playerTitle").textContent = video.title;
-
-  player.pause();
-  player.src = video.src;
-  player.load();
-
-  player.onloadedmetadata = () => {
-    const savedTime = Number(db.progress[id]) || 0;
-
-    if (savedTime > 0 && savedTime < player.duration - 2) {
-      player.currentTime = savedTime;
-    }
-  };
-
-  player.play().catch(() => {
-    $("playerTitle").textContent =
-      video.title + " — press Play if playback does not start automatically.";
-  });
-
-  player.scrollIntoView({behavior:"smooth", block:"center"});
+function populateAdSettings() {
+  const videos = getItems("videos");
+  const ads = getItems("ads").filter(a=>a.active);
+  $("settingsVideo").innerHTML = videos.map(v=>`<option value="${esc(v.id)}">${esc(v.title)}</option>`).join("");
+  $("selectedAds").innerHTML = ads.map(a=>`<option value="${esc(a.id)}">${esc(a.title)}</option>`).join("");
+  const id = $("settingsVideo").value;
+  const settings = getObject("adSettings")[id] || {};
+  if (settings.count != null) $("adCount").value = settings.count;
+  if (settings.placement) $("adPlacement").value = settings.placement;
+  if (settings.minutes) $("adMinutes").value = settings.minutes.join(", ");
+  [...$("selectedAds").options].forEach(o=>o.selected=(settings.ads||[]).includes(o.value));
 }
 
-$("player").addEventListener("timeupdate", () => {
-  if (!currentVideoId) return;
+$("settingsVideo").addEventListener("change", populateAdSettings);
 
-  db.progress[currentVideoId] = $("player").currentTime;
-
-  if (Math.floor($("player").currentTime) % 5 === 0) {
-    saveDB();
-  }
-});
-
-$("player").addEventListener("ended", () => {
-  if (currentVideoId) {
-    delete db.progress[currentVideoId];
-    saveDB();
-    renderAll();
-  }
-});
-
-$("nextButton").addEventListener("click", () => {
-  const current = db.videos.find(v => v.id === currentVideoId);
-  if (!current) {
-    alert("Play an episode first.");
+function loginAdmin(event) {
+  event.preventDefault();
+  if ($("adminPin").value !== "7777") {
+    status("Incorrect demo PIN.");
     return;
   }
+  adminUnlocked = true;
+  $("adminLogin").classList.add("hidden");
+  $("adminTools").classList.remove("hidden");
+  status("Demo Admin Studio unlocked. This is not secure authentication.");
+  renderAll();
+}
+function logoutAdmin() {
+  adminUnlocked = false;
+  $("adminTools").classList.add("hidden");
+  $("adminLogin").classList.remove("hidden");
+  $("adminPin").value = "";
+}
 
-  const episodes = getPublished()
-    .filter(v => v.series && v.series === current.series)
-    .sort((a,b) =>
-      (Number(a.season)||0) - (Number(b.season)||0) ||
-      (Number(a.episode)||0) - (Number(b.episode)||0)
-    );
-
-  const index = episodes.findIndex(v => v.id === currentVideoId);
-
-  if (episodes[index + 1]) {
-    playVideo(episodes[index + 1].id);
-  } else {
-    alert("No next episode found.");
-  }
-});
-
-function readFile(file) {
-  return new Promise((resolve, reject) => {
-    if (!file) return resolve("");
-
-    const reader = new FileReader();
-
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = () => reject(new Error("File reading failed"));
-
+async function savePoster(file) {
+  if (!file) return "";
+  if (!file.type.startsWith("image/")) throw new Error("Poster must be an image.");
+  if (file.size > 3*1024*1024) throw new Error("Poster must be under 3 MB.");
+  return new Promise((resolve,reject)=>{
+    const reader=new FileReader();
+    reader.onload=()=>resolve(reader.result);
+    reader.onerror=()=>reject(new Error("Could not read poster."));
     reader.readAsDataURL(file);
   });
 }
 
-$("videoFile").addEventListener("change", () => {
-  const file = $("videoFile").files[0];
-
-  $("selectedVideo").textContent = file
-    ? "Selected: " + file.name + " (" +
-      (file.size / 1024 / 1024).toFixed(2) + " MB)"
-    : "No video selected.";
-});
-
-$("addVideoButton").addEventListener("click", async () => {
-  if (!adminUnlocked) {
-    alert("Unlock the demo Admin Panel first.");
-    return;
-  }
-
-  const title = $("videoTitle").value.trim();
+$("videoForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  if (!adminUnlocked) return status("Unlock Admin Studio first.");
   const file = $("videoFile").files[0];
   const url = $("videoURL").value.trim();
-
-  if (!title) {
-    $("videoMessage").textContent = "Enter a video title.";
-    return;
-  }
-
-  if (!file && !url) {
-    $("videoMessage").textContent =
-      "Choose a video file or enter a direct video URL.";
-    return;
-  }
-
-  if (file && file.size > 12 * 1024 * 1024) {
-    $("videoMessage").textContent =
-      "This local demo limits files to 12 MB. Larger files need online hosting.";
-    return;
-  }
-
-  $("addVideoButton").disabled = true;
-  $("videoMessage").textContent = "Reading video file...";
-
+  if (!file && !url) return status("Choose a video file or enter a video URL.");
+  if (file && file.size > 2*1024*1024*1024) return status("This demo limits each file to 2 GB; browser limits may be lower.");
+  const id = uid();
   try {
-    const src = file ? await readFile(file) : url;
-    const poster = await readFile($("posterFile").files[0]);
-
-    const video = {
-      id: Date.now().toString() + Math.random().toString(36).slice(2),
-      title,
-      category: $("videoCategory").value,
-      series: $("seriesName").value.trim(),
-      season: $("seasonNumber").value,
-      episode: $("episodeNumber").value,
-      description: $("videoDescription").value.trim(),
-      src,
-      poster,
-      status: $("videoStatus").value,
-      created: Date.now()
-    };
-
-    db.videos.push(video);
-
-    if (saveDB()) {
-      $("videoMessage").textContent = "Video saved successfully.";
-
-      $("videoTitle").value = "";
-      $("seriesName").value = "";
-      $("seasonNumber").value = "";
-      $("episodeNumber").value = "";
-      $("videoDescription").value = "";
-      $("videoFile").value = "";
-      $("posterFile").value = "";
-      $("videoURL").value = "";
-      $("selectedVideo").textContent = "No video selected.";
-
-      renderAll();
-    } else {
-      db.videos = db.videos.filter(v => v.id !== video.id);
+    $("videoProgress").value = 10;
+    let source = url;
+    if (file) {
+      if (!/\.(mp4|webm|mov)$/i.test(file.name)) throw new Error("Choose an MP4, WebM or MOV file.");
+      await putMedia(id, file, file.name);
+      source = "idb:" + id;
     }
-  } catch (error) {
-    $("videoMessage").textContent =
-      "Could not read this file. Try another file or a smaller video.";
-  } finally {
-    $("addVideoButton").disabled = false;
-  }
-});
-
-$("clearVideoButton").addEventListener("click", () => {
-  ["videoTitle","seriesName","seasonNumber","episodeNumber",
-   "videoDescription","videoURL"].forEach(id => $(id).value = "");
-
-  $("videoFile").value = "";
-  $("posterFile").value = "";
-  $("selectedVideo").textContent = "No video selected.";
-  $("videoMessage").textContent = "";
-});
-
-$("unlockButton").addEventListener("click", () => {
-  if ($("adminPin").value === db.pin) {
-    adminUnlocked = true;
-    $("adminArea").classList.remove("hidden");
-    $("adminStatus").textContent = "Local demo unlocked.";
+    $("videoProgress").value = 65;
+    const poster = await savePoster($("videoPoster").files[0]);
+    const item = {
+      id, title:$("videoTitle").value.trim(),
+      description:$("videoDescription").value.trim(),
+      category:$("videoCategory").value,
+      showName:$("showName").value.trim(),
+      season:Number($("seasonNumber").value)||null,
+      episode:Number($("episodeNumber").value)||null,
+      source, poster, published:$("videoPublish").checked,
+      created:Date.now()
+    };
+    setItems("videos", [...getItems("videos"),item]);
+    $("videoProgress").value = 100;
+    $("videoForm").reset();
+    status("Video saved. It is available in this browser only.");
     renderAll();
-  } else {
-    $("adminStatus").textContent = "Incorrect PIN.";
-  }
-});
-
-$("addAdButton").addEventListener("click", async () => {
-  if (!adminUnlocked) {
-    alert("Unlock Admin first.");
-    return;
-  }
-
-  const title = $("adTitle").value.trim();
-
-  if (!title) {
-    $("adMessage").textContent = "Enter an advertisement title.";
-    return;
-  }
-
-  try {
-    const image = await readFile($("adImageFile").files[0]);
-
-    db.ads.push({
-      id: Date.now().toString(),
-      title,
-      description: $("adDescription").value.trim(),
-      image: image || $("adImageURL").value.trim(),
-      cta: $("adCTA").value,
-      url: $("adDestination").value.trim(),
-      duration: Math.max(3, Math.min(60, Number($("adDuration").value) || 8)),
-      active: true
-    });
-
-    if (saveDB()) {
-      $("adMessage").textContent = "Advertisement added.";
-
-      ["adTitle","adDescription","adImageURL","adDestination"]
-        .forEach(id => $(id).value = "");
-
-      $("adImageFile").value = "";
-      renderAll();
-    }
   } catch (error) {
-    $("adMessage").textContent = "Could not read the ad image.";
+    $("videoProgress").value = 0;
+    status("Video save failed: " + error.message + ". Try a smaller file or check browser storage.");
   }
 });
 
-$("clearAdButton").addEventListener("click", () => {
-  ["adTitle","adDescription","adImageURL","adDestination"]
-    .forEach(id => $(id).value = "");
-
-  $("adImageFile").value = "";
-  $("adMessage").textContent = "";
+$("adForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  if (!adminUnlocked) return status("Unlock Admin Studio first.");
+  const file = $("adFile").files[0];
+  const imageFile = $("adImage").files[0];
+  const url = $("adURL").value.trim();
+  if (!file && !imageFile && !url) return status("Choose an ad video, image or URL.");
+  const id = uid();
+  try {
+    let source = url;
+    if (file) {
+      if (!/\.(mp4|webm|mov)$/i.test(file.name)) throw new Error("Choose MP4, WebM or MOV.");
+      await putMedia(id,file,file.name);
+      source = "idb:" + id;
+    }
+    const image = imageFile ? await savePoster(imageFile) : "";
+    const ad = {
+      id, title:$("adTitle").value.trim(), source, image,
+      cta:$("adCTA").value.trim(),
+      destination:$("adDestination").value.trim(),
+      skipAfter:Math.max(0,Number($("adSkip").value)||0),
+      active:$("adActive").checked, created:Date.now()
+    };
+    setItems("ads",[...getItems("ads"),ad]);
+    $("adForm").reset();
+    $("adSkip").value=5;
+    status("Ad saved locally.");
+    renderAll();
+  } catch(error) { status("Ad save failed: "+error.message); }
 });
 
-function renderAds() {
-  const grid = $("adsGrid");
-  if (!grid) return;
+$("adSettingsForm").addEventListener("submit", event => {
+  event.preventDefault();
+  if (!adminUnlocked) return status("Unlock Admin Studio first.");
+  const id = $("settingsVideo").value;
+  if (!id) return status("Add a main video first.");
+  const all = getObject("adSettings");
+  all[id] = {
+    count:Math.max(0,Math.min(50,Number($("adCount").value)||0)),
+    ads:[...$("selectedAds").selectedOptions].map(o=>o.value),
+    placement:$("adPlacement").value,
+    minutes:$("adMinutes").value.split(",").map(x=>Number(x.trim())).filter(x=>Number.isFinite(x)&&x>=0)
+  };
+  setObject("adSettings",all);
+  status("Ad settings saved for this video.");
+});
 
-  grid.replaceChildren();
-
-  if (!db.ads.length) {
-    const empty = document.createElement("div");
-    empty.className = "empty";
-    empty.textContent = "No advertisements added.";
-    grid.append(empty);
-    return;
-  }
-
-  db.ads.forEach(ad => {
-    const card = document.createElement("div");
-    card.className = "card";
-
-    const title = document.createElement("h3");
-    title.textContent = ad.title;
-
-    const status = document.createElement("p");
-    status.textContent = ad.active ? "Active" : "Disabled";
-
-    const toggle = document.createElement("button");
-    toggle.className = "secondary";
-    toggle.textContent = ad.active ? "Disable" : "Enable";
-
-    toggle.onclick = () => {
-      ad.active = !ad.active;
-      saveDB();
-      renderAds();
-    };
-
-    const remove = document.createElement("button");
-    remove.className = "danger";
-    remove.textContent = "Delete";
-
-    remove.onclick = () => {
-      db.ads = db.ads.filter(x => x.id !== ad.id);
-      saveDB();
-      renderAds();
-    };
-
-    card.append(title, status, toggle, remove);
-    grid.append(card);
-  });
+async function resolveSource(source) {
+  if (!source) throw new Error("No video source.");
+  if (!source.startsWith("idb:")) return source;
+  const record = await getMedia(source.slice(4));
+  if (!record) throw new Error("Video file is missing from local browser storage.");
+  return URL.createObjectURL(record.blob);
 }
 
-$("exportButton").addEventListener("click", () => {
-  const blob = new Blob([JSON.stringify(db)], {
-    type:"application/json"
-  });
-
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-
-  link.href = url;
-  link.download = "star7-global-backup.json";
-  link.click();
-
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-});
-
-$("importInput").addEventListener("change", async event => {
-  const file = event.target.files[0];
-  if (!file) return;
-
+async function playVideo(id) {
+  const item = getItems("videos").find(v=>v.id===id);
+  if (!item) return status("Video not found.");
+  currentVideo = item;
+  adBreakActive = false;
+  clearInterval(adTimer);
+  $("playerArea").classList.remove("hidden");
+  $("playerTitle").textContent = item.title;
+  $("playerStatus").textContent = item.description || "";
+  const player = $("player");
+  if (player.dataset.objectUrl) URL.revokeObjectURL(player.dataset.objectUrl);
   try {
-    const data = JSON.parse(await file.text());
-
-    if (!data || !Array.isArray(data.videos)) {
-      throw new Error("Invalid backup");
-    }
-
-    if (!confirm("Replace current local data with this backup?")) return;
-
-    db = {
-      ...db,
-      ...data,
-      videos: data.videos,
-      ads: Array.isArray(data.ads) ? data.ads : [],
-      watchlist: Array.isArray(data.watchlist) ? data.watchlist : [],
-      history: Array.isArray(data.history) ? data.history : [],
-      progress: data.progress || {}
+    let src = await resolveSource(item.source);
+    if (src.startsWith("blob:")) player.dataset.objectUrl = src;
+    else delete player.dataset.objectUrl;
+    player.src = src;
+    player.load();
+    player.onloadedmetadata = () => {
+      const saved = getObject("progress")[id];
+      if (saved && saved.seconds > 0 && saved.seconds < player.duration - 2) player.currentTime=saved.seconds;
+      player.play().catch(()=>{ $("playerStatus").textContent="Press Play to start playback."; });
     };
+    $("playerArea").scrollIntoView({behavior:"smooth"});
+  } catch(error) { status("Cannot play video: "+error.message); }
+}
 
-    saveDB();
-    renderAll();
-    alert("Backup restored.");
-  } catch (error) {
-    alert("Invalid backup file.");
-  } finally {
-    event.target.value = "";
+function closePlayer() {
+  const p=$("player");
+  p.pause();
+  p.removeAttribute("src");
+  p.load();
+  $("playerArea").classList.add("hidden");
+  clearInterval(adTimer);
+  adBreakActive=false;
+  currentAd=null;
+}
+
+function saveProgress() {
+  if (!currentVideo || adBreakActive) return;
+  const p=$("player");
+  if (!Number.isFinite(p.currentTime)) return;
+  const all=getObject("progress");
+  all[currentVideo.id]={
+    seconds:p.currentTime,
+    duration:Number.isFinite(p.duration)?p.duration:0,
+    updated:Date.now()
+  };
+  setObject("progress",all);
+  renderAll();
+}
+
+async function playAd(ad) {
+  if (!ad || !ad.active) return;
+  const p=$("player");
+  currentAd=ad;
+  adBreakActive=true;
+  p.pause();
+  $("adOverlay").classList.remove("hidden");
+  $("adLabel").textContent="Advertisement: "+ad.title;
+  $("adText").textContent="Your video will resume after this advertisement.";
+  $("adLink").classList.toggle("hidden",!ad.destination);
+  $("adLink").href=ad.destination || "#";
+  $("skipAd").classList.add("hidden");
+  if (ad.image) {
+    p.pause();
+    $("playerStatus").textContent="Image advertisement";
+    let seconds=5;
+    $("adText").textContent=ad.title+" · "+seconds+" seconds";
+    adTimer=setInterval(()=>{
+      seconds--;
+      $("adText").textContent=ad.title+" · "+Math.max(0,seconds)+" seconds";
+      if(seconds<=0) finishAd();
+    },1000);
+    return;
   }
-});
-
-$("shareButton").addEventListener("click", async () => {
-  const text =
-    "Star 7 Global OTT Project: movies, series, episodes, video upload, " +
-    "ad management, search, watchlist and video player.";
-
   try {
-    if (navigator.share) {
-      await navigator.share({
-        title:"Star 7 Global",
-        text
-      });
-    } else if (navigator.clipboard) {
-      await navigator.clipboard.writeText(text);
-      alert("Project details copied.");
-    } else {
-      prompt("Copy project details:", text);
+    const src=await resolveSource(ad.source);
+    if (src.startsWith("blob:")) p.dataset.adObjectUrl=src;
+    p.src=src;
+    p.load();
+    p.play().catch(()=>{});
+    let seconds=Math.max(0,ad.skipAfter||0);
+    if(seconds>0){
+      adTimer=setInterval(()=>{
+        seconds--;
+        if(seconds<=0){
+          $("skipAd").textContent="Skip Ad";
+          $("skipAd").classList.remove("hidden");
+          clearInterval(adTimer);
+        } else {
+          $("skipAd").textContent="Skip Ad ("+seconds+")";
+          $("skipAd").classList.remove("hidden");
+        }
+      },1000);
     }
-  } catch (error) {
-    if (error.name !== "AbortError") {
-      alert("Sharing was not completed.");
+    p.onended=finishAd;
+  } catch(error) {
+    status("Ad could not play: "+error.message);
+    finishAd();
+  }
+}
+
+function finishAd() {
+  clearInterval(adTimer);
+  const p=$("player");
+  if(p.dataset.adObjectUrl){
+    URL.revokeObjectURL(p.dataset.adObjectUrl);
+    delete p.dataset.adObjectUrl;
+  }
+  $("adOverlay").classList.add("hidden");
+  adBreakActive=false;
+  currentAd=null;
+  if(currentVideo) {
+    resolveSource(currentVideo.source).then(src=>{
+      p.src=src;
+      p.load();
+      p.onloadedmetadata=()=>p.play().catch(()=>{});
+      p.onended=()=>{};
+    }).catch(e=>status(e.message));
+  }
+}
+function skipCurrentAd(){ if(currentAd && currentAd.skipAfter>0) finishAd(); }
+
+$("player").addEventListener("timeupdate",()=>{
+  const p=$("player");
+  if(!currentVideo || adBreakActive || !Number.isFinite(p.currentTime)) return;
+  const all=getObject("adSettings");
+  const s=all[currentVideo.id];
+  if(s && s.count>0 && s.ads?.length && Number.isFinite(p.duration) && p.duration>0){
+    let points=[];
+    if(s.placement==="manual") points=s.minutes.map(m=>m*60);
+    else {
+      for(let i=1;i<=s.count;i++) points.push(p.duration*i/(s.count+1));
+    }
+    const fired=getItems("adFired");
+    const point=points.find((t,i)=>p.currentTime>=t && !fired.includes(currentVideo.id+":"+i));
+    if(point!==undefined){
+      const i=points.indexOf(point);
+      setItems("adFired",[...fired,currentVideo.id+":"+i]);
+      const chosen=s.ads[i%s.ads.length];
+      const ad=getItems("ads").find(a=>a.id===chosen);
+      if(ad) playAd(ad);
     }
   }
+  if(Math.floor(p.currentTime)!==lastSavedSecond){
+    lastSavedSecond=Math.floor(p.currentTime);
+    saveProgress();
+  }
+});
+$("player").addEventListener("ended",()=>{
+  if(adBreakActive) return;
+  if(currentVideo){
+    const all=getObject("progress");
+    delete all[currentVideo.id];
+    setObject("progress",all);
+    renderAll();
+  }
+});
+$("player").addEventListener("error",()=>{
+  if(!adBreakActive) $("playerStatus").textContent="Playback failed. This browser may not support this video format or URL.";
 });
 
-renderAll();
-</script>
+async function removeVideo(id) {
+  if(!adminUnlocked || !confirm("Delete this video and its local file?")) return;
+  const item=getItems("videos").find(v=>v.id===id);
+  if(item?.source?.startsWith("idb:")) await deleteMedia(item.source.slice(4));
+  setItems("videos",getItems("videos").filter(v=>v.id!==id));
+  const settings=getObject("adSettings"); delete settings[id]; setObject("adSettings",settings);
+  status("Video deleted.");
+  renderAll();
+}
+async function removeAd(id) {
+  if(!adminUnlocked || !confirm("Delete this ad?")) return;
+  const item=getItems("ads").find(a=>a.id===id);
+  if(item?.source?.startsWith("idb:")) await deleteMedia(item.source.slice(4));
+  setItems("ads",getItems("ads").filter(a=>a.id!==id));
+  status("Ad deleted.");
+  renderAll();
+}
 
+function exportBackup() {
+  const data={
+    videos:getItems("videos"),ads:getItems("ads"),
+    progress:getObject("progress"),adSettings:getObject("adSettings"),
+    watchlist:getItems("watchlist")
+  };
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url;a.download="star7-metadata-backup.json";a.click();
+  URL.revokeObjectURL(url);
+}
+function importBackup(event) {
+  const file=event.target.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=()=>{
+    try{
+      const d=JSON.parse(reader.result);
+      if(!Array.isArray(d.videos)||!Array.isArray(d.ads)) throw new Error("Invalid backup format");
+      setItems("videos",d.videos);
+      setItems("ads",d.ads);
+      setObject("progress",d.progress||{});
+      setObject("adSettings",d.adSettings||{});
+      setItems("watchlist",d.watchlist||[]);
+      renderAll();
+      status("Metadata restored. Video files must be added again if they are missing.");
+    }catch(e){status("Backup import failed: "+e.message);}
+  };
+  reader.readAsText(file);
+}
+
+async function init() {
+  try {
+    await openDB();
+    status("Star 7 local storage is ready.");
+  } catch(error) {
+    status("Browser storage is unavailable: "+error.message);
+  }
+  renderAll();
+}
+init();
+</script>
 </body>
 </html>
